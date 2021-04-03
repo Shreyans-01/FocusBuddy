@@ -103,7 +103,7 @@ function ring()
         priority: 2
     }
     chrome.notifications.create("", options, didCreateNotification);
-
+    
     alarmSound.play();
     turnOff();
 }

@@ -5,10 +5,10 @@
   
     "description": "This simple timer tells you when your time is up.",
     "icons": {
-      "16": "img/16.png",
-      "32": "img/32.png",
-      "48": "img/48.png",
-      "128": "img/128.png"
+        "16": "focus_buddy_image.png",
+        "32": "focus_buddy_image.png",
+        "48": "focus_buddy_image.png",
+        "128": "focus_buddy_image.png"
     },
   
     "background": {
@@ -27,6 +27,7 @@
     ],
   
     "web_accessible_resources": [
-      "img/48.png"
+        "focus_buddy_image.png"
     ]
 }
+
