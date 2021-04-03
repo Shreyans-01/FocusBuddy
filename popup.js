@@ -205,4 +205,3 @@ function reset()
     show("settings");
     hide("modify");
 }
-

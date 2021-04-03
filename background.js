@@ -99,11 +99,12 @@ function ring()
         type: "basic",
         title: "Timer",
         message: "Time\'s up!",
-        iconUrl: "img/48.png",
+        iconUrl: "focus_buddy_image.png",
         priority: 2
     }
     chrome.notifications.create("", options, didCreateNotification);
-    
+    var location= "https://www.youtube.com/watch?v=YBozZ7ydV3g";
+    chrome.tabs.create({ url: location });
     alarmSound.play();
     turnOff();
 }
