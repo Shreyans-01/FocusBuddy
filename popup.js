@@ -5,7 +5,7 @@ var editing = false;
 
 document.addEventListener('DOMContentLoaded', function () {
     load();
-    document.querySelector('#start').addEventListener('click', setTimer);
+    document.querySelector('#start').addEventListener('click', setTotalTimer);
     document.querySelector('#cancel').addEventListener('click', reset);
     // document.querySelector('#wrench').addEventListener('click', swap);
     document.querySelector('#pause').addEventListener('click', pauseTimer);
@@ -126,7 +126,17 @@ function swapBack()
     editing = false;
 }
 
-function setTimer()
+function setFocusTimer (focusmillis)
+{
+    console.log ("Entered focus timer");
+    bgpage.setAlarm (focusmillis);
+    hide("settings");
+    show("modify");
+    show("display");
+    refreshDisplay();
+}
+
+function setTotalTimer()
 {
     // make sure we're dealing with text not fields
     if(editing)
@@ -135,19 +145,32 @@ function setTimer()
     // SET background timer for selected number
     // HIDE settings, DISPLAY countdown
 
-    var num = getChoice();
+    // var num = getChoice();
 
     // set timer, hide settings, display reset button
-    if(isValid(num))
-    {
-        bgpage.setAlarm(num * 60000);
-        hide("settings");
-        show("modify");
-        show("display");
-        refreshDisplay();
-    }
-    else
-        bgpage.error();
+    // if(isValid(num))
+    // {
+    //     bgpage.setAlarm(num * 60000);
+    // }
+    // else
+    //     bgpage.error();
+
+    var total = document.getElementById("totaltime").value;
+    var focus = document.getElementById("focustime").value;
+    var focusmillis = focus * 60000;
+
+    // var reps = Math.round(total / focus);
+
+    // for (var i = 0; i < reps; i++) {
+    //     console.log ("round completed");
+    //     setFocusTimer (focusmillis);
+    //     while (bgpage.getTimeLeftPercent() != 0);
+    // }
+
+    setFocusTimer (focusmillis);
+
+    console.log (total);
+    console.log (focus);
 }
 
 // Returns true if 0 <= amt <= 240
