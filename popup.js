@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     load();
     document.querySelector('#start').addEventListener('click', setTimer);
     document.querySelector('#cancel').addEventListener('click', reset);
-    document.querySelector('#wrench').addEventListener('click', swap);
+    // document.querySelector('#wrench').addEventListener('click', swap);
     document.querySelector('#pause').addEventListener('click', pauseTimer);
     document.querySelector('#resume').addEventListener('click', resumeTimer);
     document.querySelector('#restart').addEventListener('click', restartTimer);
@@ -43,9 +43,9 @@ function load()
     }
 
     // loads custom times if they exist
-    for(var i = 0; i < document.choices.radio.length; i++)
-        if(localStorage[i] != null)
-            document.getElementById("s"+i).textContent = localStorage[i];
+    // for(var i = 0; i < document.choices.radio.length; i++)
+    //     if(localStorage[i] != null)
+    //         document.getElementById("s"+i).textContent = localStorage[i];
 
     // if timer is off, show settings
     if(!bgpage.alarmDate)
