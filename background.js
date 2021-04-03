@@ -97,8 +97,8 @@ function ring()
 {
     var options = {
         type: "basic",
-        title: "Timer",
-        message: "Time\'s up!",
+        title: "Let\'s Relax",
+        message: "A cute video awaits you !",
         iconUrl: "focus_buddy_image.png",
         priority: 2
     }
