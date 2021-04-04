@@ -1,4 +1,8 @@
 var refreshDisplayTimeout;
+<<<<<<< Updated upstream
+=======
+var timeoutID;
+>>>>>>> Stashed changes
 var bgpage = chrome.extension.getBackgroundPage();
 var previousValues = [3, 5, 10, 30];
 var editing = false;
@@ -42,16 +46,18 @@ function load()
         hide("pause");
     }
 
-    // loads custom times if they exist
-    // for(var i = 0; i < document.choices.radio.length; i++)
-    //     if(localStorage[i] != null)
-    //         document.getElementById("s"+i).textContent = localStorage[i];
-
     // if timer is off, show settings
-    if(!bgpage.alarmDate)
+    else if(!bgpage.alarmDate)
     {
         show("settings");
         hide("display");
+    }
+
+    else if (bgpage.timer){
+        hide("settings");
+        show("modify");
+        show("display");
+        refreshDisplay();
     }
 
     // else, show countdown
@@ -63,6 +69,7 @@ function load()
     }
 }
 
+<<<<<<< Updated upstream
 function getChoice()
 {
     // find selected RADIO, RETURN selected value
@@ -130,12 +137,21 @@ function setFocusTimer (focusmillis)
 {
     console.log ("Entered focus timer");
     bgpage.setAlarm (focusmillis);
+=======
+function setTotalTimer()
+{
+    var total = document.getElementById("totaltime").value;
+    var focus = document.getElementById("focustime").value;
+    bgpage.totalTimer (total, focus);
+    
+>>>>>>> Stashed changes
     hide("settings");
     show("modify");
     show("display");
     refreshDisplay();
 }
 
+<<<<<<< Updated upstream
 function setTotalTimer()
 {
     // make sure we're dealing with text not fields
@@ -184,6 +200,8 @@ function isValid(amt)
         return true;
 }
 
+=======
+>>>>>>> Stashed changes
 function refreshDisplay()
 {
     percent = bgpage.getTimeLeftPercent();

@@ -1,5 +1,6 @@
 var timeout;
 var interval;
+var timer;
 
 var setDate;
 var pauseDate;
@@ -96,6 +97,27 @@ function ringIn(tMillis)
     }, 1000);
 }
 
+function totalTimer (total, focus) {
+    var totalmillis = total * 60000;
+    var focusmillis = focus * 60000;
+
+    // run timer once before setInterval can start running timer
+    setAlarm (focusmillis);
+
+    setTimeout (function () {
+        clearInterval (timer);
+        console.log ("Finished execution");
+    }, totalmillis);
+
+    timer = setInterval (function () {
+        console.log ("Inside setInterval");
+        setAlarm (focusmillis);
+    }, focusmillis);
+
+    console.log (total);
+    console.log (focus);
+}
+
 function pause()
 {
     pauseDate = new Date();
@@ -149,7 +171,7 @@ function ring()
     var options = {
         type: "basic",
         title: "Let\'s Relax",
-        message: "A cute video awaits you !",
+        message: "A cute video awaits you!",
         iconUrl: "focus_buddy_image.png",
         priority: 2
     }
