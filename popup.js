@@ -1,4 +1,5 @@
 var refreshDisplayTimeout;
+var timer;
 var timeoutID;
 var bgpage = chrome.extension.getBackgroundPage();
 var previousValues = [3, 5, 10, 30];
@@ -66,6 +67,7 @@ function load()
     }
 }
 
+
 function setTotalTimer()
 {
     var total = document.getElementById("totaltime").value;
@@ -77,6 +79,7 @@ function setTotalTimer()
     show("display");
     refreshDisplay();
 }
+
 
 function refreshDisplay()
 {
@@ -117,6 +120,7 @@ function restartTimer()
 function reset()
 {
     clearTimeout(refreshDisplayTimeout);
+    clearInterval(timer);
     bgpage.turnOff();
     hide("display");
     show("settings");

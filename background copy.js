@@ -1,6 +1,7 @@
-// var timeout;
+// BACKUP COPY (in case passing the parcel goes wrong)
+
+var timeout;
 var interval;
-var timer;
 
 var setDate;
 var pauseDate;
@@ -71,14 +72,13 @@ var guiLagAdjustment = 500;
 
 var alarmSound = new Audio("chime.mp3");
 
-function setAlarm(tMillis, timeout)
+function setAlarm(tMillis)
 {
     interval = tMillis;
-    console.log ("Finished setAlarm");
-    return ringIn(tMillis + guiLagAdjustment, timeout);
+    ringIn(tMillis + guiLagAdjustment);
 }
 
-function ringIn(tMillis, timeout)
+function ringIn(tMillis)
 {
     clearTimeout(timeout);
     pauseDate = null;
@@ -98,38 +98,12 @@ function ringIn(tMillis, timeout)
     alarmDate.setMilliseconds(alarmDate.getMilliseconds() + millis);
 
     setDate = new Date();
-    timeout = setTimeout(function () {
-        ring (timeout);
-    }, alarmDate.getTime() - setDate.getTime());
+    timeout = setTimeout(ring, alarmDate.getTime() - setDate.getTime());
 
     chrome.browserAction.setBadgeBackgroundColor({color:greenColor});
     setInterval(function() {
         chrome.browserAction.setBadgeText({text: getTimeLeftString()});
     }, 1000);
-
-    console.log ("Finished ringIn");
-    return timeout;
-}
-
-function totalTimer (total, focus) {
-    var totalmillis = total * 60000;
-    var focusmillis = focus * 60000;
-
-    // run timer once before setInterval can start running timer
-    setAlarm (focusmillis);
-
-    setTimeout (function () {
-        clearInterval (timer);
-        console.log ("Finished execution");
-    }, totalmillis);
-
-    timer = setInterval (function () {
-        console.log ("Inside setInterval");
-        setAlarm (focusmillis);
-    }, focusmillis);
-
-    console.log (total);
-    console.log (focus);
 }
 
 function pause()
@@ -152,7 +126,6 @@ function restart()
 
 function getTimeLeft()
 {
-    // console.log ("Finished getTimeLeft");
     if (pauseDate)
         return (alarmDate.getTime() - pauseDate.getTime());
 
@@ -166,7 +139,6 @@ function getTimeLeft()
 
 function getTimeLeftPercent()
 {
-    // console.log ("Finished getTimeLeftPercent");
     return parseInt(getTimeLeft() / interval * 100);
 }
 
@@ -181,18 +153,17 @@ function getTimeLeftString()
     if(secs < 10) secs = "0" + secs;
     if(mins < 10) mins = "0" + mins;
     if(tHrs < 10) tHrs = "0" + tHrs;
-    // console.log ("Finished getTimeLeftString");
     return ((tHrs > 0 ? tHrs + ":" : "") + mins + ":" + secs);
 }
 
 function didCreateNotification(notificationId) {}
 
-function ring(timeout)
+function ring()
 {
     var options = {
         type: "basic",
         title: "Let\'s Relax",
-        message: "A cute video awaits you!",
+        message: "A cute video awaits you !",
         iconUrl: "focus_buddy_image.png",
         priority: 2
     }
@@ -219,11 +190,10 @@ function ring(timeout)
         });
     }, ((lengthoflinks[a] + loadinglag)*1000));
 
-    turnOff(timeout);
-    console.log ("Finished ring");
+    turnOff();
 }
 
-function turnOff(timeout)
+function turnOff()
 {
     clearTimeout(timeout);
     interval = 0;
@@ -231,10 +201,9 @@ function turnOff(timeout)
     pauseDate = null;
     setDate = null;
     chrome.browserAction.setBadgeText({text: ""});
-    console.log ("Finished turnOff");
 }
 
-// function error()
-// {
-//     alert("Please enter a number between 1 and 240.");
-// }
+function error()
+{
+    alert("Please enter a number between 1 and 240.");
+}
