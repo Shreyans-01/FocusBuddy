@@ -1,8 +1,5 @@
 var refreshDisplayTimeout;
-<<<<<<< Updated upstream
-=======
 var timeoutID;
->>>>>>> Stashed changes
 var bgpage = chrome.extension.getBackgroundPage();
 var previousValues = [3, 5, 10, 30];
 var editing = false;
@@ -69,139 +66,18 @@ function load()
     }
 }
 
-<<<<<<< Updated upstream
-function getChoice()
-{
-    // find selected RADIO, RETURN selected value
-    var num;
-    for(var i = 0; i < document.choices.radio.length; i++)
-    {
-        if(document.choices.radio[i].checked == true)
-            num = parseInt(document.getElementById("s"+i).textContent);
-    }
-    return num;
-}
-
-function swap()
-{
-    editing = true;
-
-    // swap text with fields
-    for(var i = 0; i < document.choices.radio.length; i++)
-    {
-        var span = document.getElementById("s"+i);
-        var num = parseInt(span.textContent);
-
-        previousValues[i] = num;
-
-        var html = "<input class='input-mini' type='text' name='custom' id='c"+i;
-        html += "' value='"+num;
-        html += "'>";
-        // used to select on click and auto save on change
-
-        span.innerHTML = html;
-    }
-
-    // swap edit button with done button
-    var butt = document.getElementById("swapper");
-    butt.innerHTML = "<a href='#' id='done' class='btn'><i class='icon-ok'></i></a>";
-    document.querySelector('#done').addEventListener('click', swapBack);
-}
-
-function swapBack()
-{
-    // swap fields with text
-    for(var i = 0; i < document.choices.radio.length; i++)
-    {
-        var span = document.getElementById("s"+i);
-        var num = parseInt(document.getElementById("c"+i).value);
-
-        if(isValid(num))
-        {
-            localStorage[i] = num;
-            span.textContent = num;
-        }
-        else
-            span.textContent = previousValues[i];
-    }
-
-    // swap done button with edit button
-    var butt = document.getElementById("swapper");
-    butt.innerHTML = "<a href='#' id='wrench' class='btn'><i class='icon-wrench'></i></a>";
-    document.querySelector('#wrench').addEventListener('click', swap);
-
-    editing = false;
-}
-
-function setFocusTimer (focusmillis)
-{
-    console.log ("Entered focus timer");
-    bgpage.setAlarm (focusmillis);
-=======
 function setTotalTimer()
 {
     var total = document.getElementById("totaltime").value;
     var focus = document.getElementById("focustime").value;
     bgpage.totalTimer (total, focus);
     
->>>>>>> Stashed changes
     hide("settings");
     show("modify");
     show("display");
     refreshDisplay();
 }
 
-<<<<<<< Updated upstream
-function setTotalTimer()
-{
-    // make sure we're dealing with text not fields
-    if(editing)
-        swapBack();
-
-    // SET background timer for selected number
-    // HIDE settings, DISPLAY countdown
-
-    // var num = getChoice();
-
-    // set timer, hide settings, display reset button
-    // if(isValid(num))
-    // {
-    //     bgpage.setAlarm(num * 60000);
-    // }
-    // else
-    //     bgpage.error();
-
-    var total = document.getElementById("totaltime").value;
-    var focus = document.getElementById("focustime").value;
-    var focusmillis = focus * 60000;
-
-    // var reps = Math.round(total / focus);
-
-    // for (var i = 0; i < reps; i++) {
-    //     console.log ("round completed");
-    //     setFocusTimer (focusmillis);
-    //     while (bgpage.getTimeLeftPercent() != 0);
-    // }
-
-    setFocusTimer (focusmillis);
-
-    console.log (total);
-    console.log (focus);
-}
-
-// Returns true if 0 <= amt <= 240
-function isValid(amt)
-{
-    if(isNaN(amt) || (amt == null))
-        return false;
-    else if((amt < 0) || (amt > 240))
-        return false;
-    else
-        return true;
-}
-
-=======
->>>>>>> Stashed changes
 function refreshDisplay()
 {
     percent = bgpage.getTimeLeftPercent();
