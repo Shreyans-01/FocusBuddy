@@ -44,16 +44,18 @@ function load()
         hide("pause");
     }
 
-    // loads custom times if they exist
-    // for(var i = 0; i < document.choices.radio.length; i++)
-    //     if(localStorage[i] != null)
-    //         document.getElementById("s"+i).textContent = localStorage[i];
-
     // if timer is off, show settings
-    if(!bgpage.alarmDate)
+    else if(!bgpage.alarmDate)
     {
         show("settings");
         hide("display");
+    }
+
+    else if (bgpage.timer){
+        hide("settings");
+        show("modify");
+        show("display");
+        refreshDisplay();
     }
 
     // else, show countdown
@@ -65,38 +67,19 @@ function load()
     }
 }
 
-function setFocusTimer (focusmillis)
+
+function setTotalTimer()
 {
-    console.log ("Entered set focus timer");
-    bgpage.setAlarm (focusmillis);
+    var total = document.getElementById("totaltime").value;
+    var focus = document.getElementById("focustime").value;
+    bgpage.totalTimer (total, focus);
+    
     hide("settings");
     show("modify");
     show("display");
     refreshDisplay();
 }
 
-function setTotalTimer()
-{
-    var total = document.getElementById("totaltime").value;
-    var focus = document.getElementById("focustime").value;
-    var totalmillis = total * 60000;
-    var focusmillis = focus * 60000;
-
-    // run timer once before setInterval can start running timer
-    setFocusTimer (focusmillis);
-
-    timer = setInterval (function () {
-        setFocusTimer(focusmillis);
-        console.log ("Inside setInterval");
-    }, focusmillis);
-
-    setTimeout (function () {
-        clearInterval (timer);
-    }, totalmillis);
-
-    console.log (total);
-    console.log (focus);
-}
 
 function refreshDisplay()
 {
